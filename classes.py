@@ -50,8 +50,8 @@ def codi_in_llista_hotels(llista_hotels, nom_hotel):
         if hotel.codi == codi:
             return True
     return False
-class importar_hotels:
-    def importar_hotels (nom_fitxer):
+
+def importar_hotels (nom_fitxer):
         try:
             with open(nom_fitxer, 'r', encoding='utf-8') as f:
                 next(f)
@@ -93,20 +93,8 @@ class Barri:
     
     def __str__(self):
         return f"Barri: {self.nom}, Codi Districte: {self.codi_districte}"
-class Districte:
-    def __init__(self, nom, extensio, poblacio):
-        if type(poblacio) != int or poblacio < 0:
-            raise ValueError("La població ha de ser un enter no negatiu.")
-        if type(extensio) != (int or float) or extensio <= 0:
-            raise ValueError("L'extensió ha de ser un nombre positiu.")
-        self.nom = nom
-        self.extensio = extensio
-        self.poblacio = poblacio
-    def __str__(self):
-        return f"{self.nom}, {self.extensio} km^2, {self.poblacio} habitants) barris: {str_barris}"
-    def densitat(self):
-        return self.poblacio / self.extensio
-    def importar_barris(nom_fitxer):
+        
+def importar_barris(nom_fitxer):
         try:
             barris = {}
             if type(codi_barri) != int or codi_barri < 0:
@@ -124,6 +112,20 @@ class Districte:
         except FileNotFoundError:
             raise FileNotFoundError("fitxer no trobat")
             
+class Districte:
+    def __init__(self, nom, extensio, poblacio):
+        if type(poblacio) != int or poblacio < 0:
+            raise ValueError("La població ha de ser un enter no negatiu.")
+        if type(extensio) != (int or float) or extensio <= 0:
+            raise ValueError("L'extensió ha de ser un nombre positiu.")
+        self.nom = nom
+        self.extensio = extensio
+        self.poblacio = poblacio
+    def __str__(self):
+        return f"{self.nom}, {self.extensio} km^2, {self.poblacio} habitants) barris: {str_barris}"
+    def densitat(self):
+        return self.poblacio / self.extensio
+        
 def importar_districtes(nom_fitxer, separador):
     dic_districtes = {}
     try:
