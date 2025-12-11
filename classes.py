@@ -1,9 +1,89 @@
+class Hotel():
+    def __init__(self, nom, codi_hotel, carrer, numero, codi_barri, codi_postal, telefon, latitud, longitud, estrelles):
+        if type(codi_hotel) != int:
+            raise TypeError("El codi de l'hotel ha de ser un enter")
+        if type(numero) != 0 or type(numero) < 0:
+            raise ValueError("El numero ha de ser un valor positiu o zero")
+        if type(codi_barri) != int:
+            raise ValueError("codi_barri ha de ser un valor positiu")
+        if type(codi_postal) != int:
+            raise TypeError("El codi postal ha de ser un enter")
+        if type(latitud) != float:
+            raise TypeError("La latitud ha de ser un valor real")
+        if type(longitud) != float:
+            raise TypeError("La longitud ha de ser un valor real")
+        if type(estrelles) not in range(1,6):
+            raise TypeError("Les estrelles han de ser un valor entre 1 i 5")
+        self.nom = str(nom)
+        self.codi_hotel = int(codi_hotel)
+        self.carrer = str(carrer)
+        self.numero = int(numero)
+        self.codi_barri = int(codi_barri)
+        self.codi_postal = int(codi_postal)
+        self.telefon = str(telefon)
+        self.latitud = float(latitud)
+        self.longitud = float(longitud)
+        self.estrelles = int(estrelles)
+    def __str__(self):
+        return f"{self.nom} {self.codi_hotel}) {self.carrer}, {self.numero} {self.codi_postal} (barri: {self.codi_barri}) {self.telefon} ({self.latitud}, {self.longitud}) {self.estrelles} estrelles"
+
+    def __gt__(self, altre_hotel):
+        if self.estrelles > altre_hotel.estrelles:
+            return True
+        else:
+            return False
+    def distancia(self,latitud2,longitud2):
+        if type(latitud2) != float:
+            raise TypeError("La latitud ha de ser un valor real")
+        if type(longitud2) != float:
+            raise TypeError("La longitud ha de ser un valor real")
+        import math
+        radi_terra = 6378.137
+        latitud = self.latitud * math.pi / 180
+        longitud = self.longitud * math.pi / 180
+        latitud2 = latitud2 * math.pi / 180
+        longitud2 = longitud2 * math.pi / 180
+        dist = arccos(sin(self.latitud)*sin(self.latitud2)+cos(self.latitud)*cos(self.latitud2)*cos(self.longitud2-self.longitud))*radi_terra
+
 def codi_in_llista_hotels(llista_hotels, nom_hotel):
     for hotel in llista_hotels:
         if hotel.codi == codi:
             return True
     return False
-
+class importar_hotels:
+    def importar_hotels (nom_fitxer):
+        try:
+            with open(nom_fitxer, 'r', encoding='utf-8') as f:
+                next(f)
+                for linia in f:
+                    linia = linia.strip()
+                    if not linia:
+                        continue
+                    dades = linia.split(";")
+                    nom_codi = dades[0].split('-')
+                    if len(nom_codi) == 2:
+                        nom = nom_codi[0].strip()
+                        codi_hotel = nom_codi[1].replace('HB-', '')
+                    else:
+                        nom = dades[0].strip()
+                        codi_hotel = ''
+                    codi_hotel = int(dades[0].split('HB-')[1]) if 'HB-' in dades[0] else 0
+                    carrer = dades[1].strip()
+                    numero = int(dades[2])
+                    codi_barri = int(dades[3])
+                    codi_postal = int(dades[4])
+                    telefon = dades[5].strip()
+                    latitud = float(dades[6])/1000000
+                    longitud = float(dades[7]) / 1000000
+                    estrelles = int(dades[8])
+                    if not codi_in_llista_hotels(codi_hotel, hotels):
+                        hotel = Hotel(nom, codi_hotel, carrer, numero, codi_barri, codi_postal, telefon, latitud, longitud, estrelles)
+                        hotels.append(hotel)
+            print(f"S'han importat correctament {len(hotels)} hotels")
+            return hotels
+        except FileNotFoundError:
+            raise FileNotFoundError("fitxer no trobat")
+            
 class Barri:
     def __init__(self, nom, codi_districte):
         if type(codi_districte) != int or codi_districte <= 0:
@@ -26,7 +106,24 @@ class Districte:
         return f"{self.nom}, {self.extensio} km^2, {self.poblacio} habitants) barris: {str_barris}"
     def densitat(self):
         return self.poblacio / self.extensio
-
+    def importar_barris(nom_fitxer):
+        try:
+            barris = {}
+            if type(codi_barri) != int or codi_barri < 0:
+                raise TypeError("codi_barri ha de ser un valor positiu")
+            with open(nom_fitxer, 'r', encoding='utf-8') as f:
+                if f > 1:
+                    for linia in f:
+                        linia.strip()
+            barri = int(input("Codi del barri:"))
+            x = Hotel(nom_fitxer)
+            if type(barri) != int:
+                raise TypeError("El codi del barri ha de ser un enter")
+            nom_fitxer.close()
+            return f"s'han importat correctament {len(barris)} barris"
+        except FileNotFoundError:
+            raise FileNotFoundError("fitxer no trobat")
+            
 def importar_districtes(nom_fitxer, separador):
     dic_districtes = {}
     try:
