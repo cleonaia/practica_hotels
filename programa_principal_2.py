@@ -25,3 +25,49 @@ class Hotel:
             if hotel.estrelles == estrelles:
                 llista.append(hotel.nom)
         return llista
+    def buscar_hotels():
+    criteri = input("Introdueix criteri de cerca (1 - per nom, 2 - per estrelles): ").strip()
+
+    if criteri == '1':
+        nom = input("Introudueix el nom de l'hotel a buscar:")
+        resultats = buscar_per_nom(hotels, nom)
+        if resultats:
+            print(f"S'han trobat {len(resultats)} hotels amb aquest nom")
+            mostrar_noms_hotels(resultats)
+        else:
+            print("No s'han trobat hotels")
+    elif criteri == '2':
+        while True:
+            valor = input("Introdueix el número d'estrelles a buscar:").strip()
+            try:
+                n = int(valor)
+            except ValueError:
+                print("Error: el número d'estrelles ha de ser un valor enter")
+                continue
+            if not (1 <= n <= 5):
+                print("Error: el número d'estrelles ha de ser un valor entre 1 i 5")
+                continue
+            resultats = buscar_per_estrelles(hotels, n)
+            if resultats:
+                print(f"S'han trobat {len(resultats)} hotels de {n} estrelles")
+                mostrar_noms_hotels(resultats)
+            else:
+                print("No s'han trobat hotels")
+            break
+    else:
+        print("Error: criteri de cerca no vàlid")
+
+
+
+    def hotel_mes_proper(hotels, latitud, longitud): 
+
+
+
+    def mostrar_menu():
+        print("---MENÚ PRINCIPAL---")
+        print("1 - Veure hotels")
+        print("2 - Veure hotels per estrelles")
+        print("3 - Buscar hotels")
+        print("4 - Buscar hotel proper")
+        print("S - Sortir")
+
