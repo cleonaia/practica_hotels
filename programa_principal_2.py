@@ -25,6 +25,7 @@ class Hotel:
             if hotel.estrelles == estrelles:
                 llista.append(hotel.nom)
         return llista
+
     def buscar_hotels():
     criteri = input("Introdueix criteri de cerca (1 - per nom, 2 - per estrelles): ").strip()
 
@@ -71,3 +72,57 @@ class Hotel:
         print("4 - Buscar hotel proper")
         print("S - Sortir")
 
+
+from classes import importar_hotels, importar_barris, importar_districtes, omplir_llista_barris, mostrar_menu, mostrar_hotels
+FITXER_HOTELS = "hotels.csv"
+FITXER_BARRIS = "barris.csv"
+FITXER_DISTRICTES = "districtes.csv"
+SEPARADOR = ';'
+AUTORS = "Leo Aguayo, Zhengli Sunzhu"
+
+llista_hotels = []
+dicc_barris = {}
+dicc_districtes = {}
+
+try:
+    llista_hotels = importar_hotels(FITXER_HOTELS, SEPARADOR)
+    dic_barris = importar_barris(FITXER_BARRIS, SEPARADOR)
+    dic_districtes = importar_districtes(FITXER_DISTRICTES, SEPARADOR)
+except FileNotFoundError as e:
+    print(f"Error llegint fitxers: {e}")
+except Exception as e:
+    print(f"Error processant els fitxers: {e}")
+else:
+    omplir_llista_barris(dic_districtes, dic_barris)
+
+    opcio = ''
+
+    while opcio.upper() != 'S':
+        mostrar_menu()
+        opcio = input("Introdueix una opció: ").strip()
+
+        if opcio == '1':
+            mostrar_hotels(llista_hotels)
+        elif opcio == '2':
+            hotels_ordenats = Hotel.ordenar_per_estrelles(llista_hotels)
+            mostrar_hotels(hotels_ordenats)
+        elif opcio == '3':
+            buscar_hotels(llista_hotels)
+        elif opcio == '4':
+            try:
+                latitut = float(input("Introdueix la latitud: ").strip())
+                longitud = float(input("Introdueix la longitud: ").strip())
+                hotel_proper = hotel_mes_proper(llista_hotels, latitut, longitud)
+                if hotel_proper:
+                    print("L'hotel més proper és:")
+                    mostrar_hotels([hotel_proper])
+                else:
+                    print("No hi ha hotels a la llista.")
+            except ValueError:
+                print("Error: latitud i longitud han de ser valors numèrics.")
+        elif opcio.upper() == 'S':
+            print("Sortint del programa")
+        else:
+            print("Opció no permesa")
+finally:
+    print(f"© {AUTORS}")
