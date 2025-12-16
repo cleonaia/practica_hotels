@@ -25,13 +25,6 @@ class Hotel:
             if hotel.estrelles == estrelles:
                 llista.append(hotel.nom)
         return llista
-        
-    def hotel_mes_proper(ll_hotels, latitud, longitud):
-        for hotel in ll_hotels:
-            if not min(ll_hotels,key = distancia):
-                return None, None
-            else:
-                return min(ll_hotels,key = distancia)
                 
     def buscar_hotels():
     criteri = input("Introdueix criteri de cerca (1 - per nom, 2 - per estrelles): ").strip()
@@ -67,8 +60,12 @@ class Hotel:
 
 
 
-    def hotel_mes_proper(hotels, latitud, longitud): 
-
+    def hotel_mes_proper(ll_hotels, latitud, longitud):
+        for hotel in ll_hotels:
+            if not min(ll_hotels,key = distancia):
+                return None, None
+            else:
+                return min(ll_hotels,key = distancia)
 
 
     def mostrar_menu():
