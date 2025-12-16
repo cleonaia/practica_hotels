@@ -20,11 +20,8 @@ class Hotel:
                 llista.append(hotel.nom)
         return llista
     def buscar_per_estrelles(ll_hotels, estrelles):
-        llista = []
-        for hotel in ll_hotels:
-            if hotel.estrelles == estrelles:
-                llista.append(hotel.nom)
-        return llista
+        return [hotel.nom for hotel in filter(lambda h: h.estrelles == estrelles, ll_hotels)]
+
                 
     def buscar_hotels():
     criteri = input("Introdueix criteri de cerca (1 - per nom, 2 - per estrelles): ").strip()
