@@ -173,6 +173,9 @@ def omplir_llista_barris(dic_districtes, dic_barris):
 def mostrar_menu():
     print("\n--- MENÚ PRINCIPAL ---")
     print("1 - Veure hotels")
+    print("2 - Veure hotels per estrelles")
+    print("3 - Buscar hotels")
+    print("4 - Buscar hotel proper")
     print("S - Sortir del programa")
 
 def mostrar_hotels(llista_hotels):
@@ -181,3 +184,69 @@ def mostrar_hotels(llista_hotels):
         return
     for hotel in llista_hotels:
         print(hotel)
+
+def ordenar_per_estrelles(llista_hotels):
+    llista_copia = llista_hotels.copy()
+    llista_copia.sort(key=lambda h: h.estrelles)
+    return llista_copia
+
+def mostrar_noms_hotels(llista_hotels):
+    for hotel in llista_hotels:
+        print(f"{hotel.nom} ({hotel.codi_hotel})")
+
+def buscar_per_nom(llista_hotels, nom_buscar):
+    nom_buscar_lower = nom_buscar.lower()
+    resultats = [h for h in llista_hotels if nom_buscar_lower in h.nom.lower()]
+    return resultats
+
+def buscar_per_estrelles(llista_hotels, estrelles):
+    resultats = list(filter(lambda h: h.estrelles == estrelles, llista_hotels))
+    return resultats
+
+def buscar_hotels(llista_hotels):
+    criteri = input("Introdueix criteri de cerca (1 - per nom, 2 - per estrelles): ").strip()
+    
+    if criteri == '1':
+        nom = input("Introdueix el nom de l'hotel a buscar: ").strip()
+        resultats = buscar_per_nom(llista_hotels, nom)
+        if resultats:
+            print(f"S'han trobat {len(resultats)} hotels amb aquest nom")
+            mostrar_noms_hotels(resultats)
+        else:
+            print("No s'han trobat hotels")
+    
+    elif criteri == '2':
+        while True:
+            try:
+                estrelles = int(input("Introdueix el número d'estrelles a buscar: ").strip())
+                if estrelles not in range(1, 6):
+                    print("Error: el número d'estrelles ha de ser un valor entre 1 i 5")
+                    continue
+                break
+            except ValueError:
+                print("Error: el número d'estrelles ha de ser un valor enter")
+        
+        resultats = buscar_per_estrelles(llista_hotels, estrelles)
+        if resultats:
+            print(f"S'han trobat {len(resultats)} hotels de {estrelles} estrelles")
+            mostrar_noms_hotels(resultats)
+        else:
+            print("No s'han trobat hotels")
+    
+    else:
+        print("Error: criteri de cerca no vàlid")
+
+def hotel_mes_proper(llista_hotels, latitud, longitud):
+    if not llista_hotels:
+        return None, None
+    
+    hotel_min = llista_hotels[0]
+    dist_min = hotel_min.distancia(latitud, longitud)
+    
+    for hotel in llista_hotels[1:]:
+        dist = hotel.distancia(latitud, longitud)
+        if dist < dist_min:
+            dist_min = dist
+            hotel_min = hotel
+    
+    return hotel_min, dist_min
