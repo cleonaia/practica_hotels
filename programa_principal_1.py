@@ -161,7 +161,9 @@ def mostrar_menu():
     print("1 - Veure hotels\n")
     print("S - Sortir del programa")
 
-from classes import importar_hotels, importar_barris, importar_districtes, omplir_llista_barris, mostrar_menu, mostrar_hotels
+from classes import (importar_hotels, importar_barris, importar_districtes, 
+                     omplir_llista_barris, mostrar_menu, mostrar_hotels,
+                     ordenar_per_estrelles, buscar_hotels, hotel_mes_proper)
 
 FITXER_HOTELS = "hotels.csv"
 FITXER_BARRIS = "barris.csv"
@@ -183,12 +185,28 @@ except Exception as e:
     print(f"Error processant els fitxers: {e}")
 else:
     omplir_llista_barris(dic_districtes, dic_barris)
-    # Bucle principal del programa ane opcions 4-7
+    # Bucle principal del programa con opciones 1-4 y S
     while True:
         mostrar_menu()
         opcio = input("Introdueix una opció: ").strip()
         if opcio == '1':
             mostrar_hotels(llista_hotels)
+        elif opcio == '2':
+            hotels_ordenats = ordenar_per_estrelles(llista_hotels)
+            mostrar_hotels(hotels_ordenats)
+        elif opcio == '3':
+            buscar_hotels(llista_hotels)
+        elif opcio == '4':
+            try:
+                latitud = float(input("Introdueix la latitud: ").strip())
+                longitud = float(input("Introdueix la longitud: ").strip())
+                hotel, distancia = hotel_mes_proper(llista_hotels, latitud, longitud)
+                if hotel is not None:
+                    print(f"L'hotel més proper és el {hotel.nom} a {distancia} kms")
+                else:
+                    print("No hi ha hotels")
+            except ValueError:
+                print("Error: latitud i longitud han de ser valors reals")
         elif opcio in ('S', 's'):
             print("Sortint del programa")
             break
