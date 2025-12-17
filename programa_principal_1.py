@@ -167,7 +167,7 @@ FITXER_HOTELS = "hotels.csv"
 FITXER_BARRIS = "barris.csv"
 FITXER_DISTRICTES = "districtes.csv"
 SEPARADOR = ';'
-AUTORS = "Leo Aguayo, Zhengli Sunzhu"
+AUTORS = "Leo Aguayo, Zhengli Sunshu"
 
 llista_hotels = []
 dic_barris = {}
@@ -196,4 +196,3 @@ else:
             print("Opció no permesa")
 finally:
     print(f"© {AUTORS}")
-
