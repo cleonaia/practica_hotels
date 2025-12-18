@@ -176,6 +176,11 @@ def mostrar_menu():
     print("2 - Veure hotels per estrelles")
     print("3 - Buscar hotels")
     print("4 - Buscar hotel proper")
+    print("5 - Llistat alfabetic d'hotels")
+    print("6 - Carrers amb hotels")
+    print("7 - Estadistica per barris")
+    print("8 - Estadistica per districtes") 
+    print("9 -Internacionalitzar per telefons")
     print("S - Sortir del programa")
 
 def mostrar_hotels(llista_hotels):
