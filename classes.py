@@ -250,3 +250,18 @@ def hotel_mes_proper(llista_hotels, latitud, longitud):
             hotel_min = hotel
     
     return hotel_min, dist_min
+
+def carrers_amb_hotel(llista_hotels):
+    carrets = set()
+    for hotel in llista_hotels:
+        carrets.add(hotel.carrer)
+    return list(carets)
+
+def afegir_prefixe_int(self):
+    if len(self.telefon) == 0 or self.telefon[0] != '+':
+        self.telefon = '+34' + self.telefon
+    return self.telefon
+
+
+def modficiar_telefon(llista_hotels):
+    list(map(lambda hotel: afegir_prefixe_int(hotel), llista_hotels))
