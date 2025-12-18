@@ -161,9 +161,7 @@ def mostrar_menu():
     print("1 - Veure hotels\n")
     print("S - Sortir del programa")
 
-from classes import (importar_hotels, importar_barris, importar_districtes, 
-                     omplir_llista_barris, mostrar_menu, mostrar_hotels,
-                     ordenar_per_estrelles, buscar_hotels, hotel_mes_proper)
+from classes import *
 
 FITXER_HOTELS = "hotels.csv"
 FITXER_BARRIS = "barris.csv"
