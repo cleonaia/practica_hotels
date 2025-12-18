@@ -183,7 +183,6 @@ except Exception as e:
     print(f"Error processant els fitxers: {e}")
 else:
     omplir_llista_barris(dic_districtes, dic_barris)
-    # Bucle principal del programa con opciones 1-4 y S
     while True:
         mostrar_menu()
         opcio = input("Introdueix una opció: ").strip()
@@ -205,6 +204,17 @@ else:
                     print("No hi ha hotels")
             except ValueError:
                 print("Error: latitud i longitud han de ser valors reals")
+        elif opcio == '5':
+            ordenar_per_nom(llista_hotels)
+            mostrar_hotels(llista_hotels)
+        elif opcio == '6':
+            carrers = carrers_amb_hotel(llista_hotels)
+            print(f"Hi ha {len(carrers)} carrers amb algun hotel: {', '.join(carrers)}")
+        elif opcio == '7':
+        
+        elif opcio == '8':
+            modifcar_telefons(llista_hotels)
+            print("S'han modificat els telèfonsd de l'hotel per afegir prefix internacions")
         elif opcio in ('S', 's'):
             print("Sortint del programa")
             break
