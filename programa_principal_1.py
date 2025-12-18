@@ -211,7 +211,9 @@ else:
             carrers = carrers_amb_hotel(llista_hotels)
             print(f"Hi ha {len(carrers)} carrers amb algun hotel: {', '.join(carrers)}")
         elif opcio == '7':
-        
+            densitat = densitat_per_districte(llista_hotels, codi_barri, codi_districte)
+            for i in range len(llista_hotels):
+                print(f"Districte {i+1}: {densitat} hotels/km2")
         elif opcio == '8':
             modifcar_telefons(llista_hotels)
             print("S'han modificat els telèfonsd de l'hotel per afegir prefix internacions")
