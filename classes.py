@@ -250,6 +250,33 @@ def hotel_mes_proper(llista_hotels, latitud, longitud):
             hotel_min = hotel
     
     return hotel_min, dist_min
+def ordenar_per_nom(llista_hotels):
+    llista_copia = list(llista_hotels.copy())
+    llista_copia.sort(key=lambda hotel: hotel.nom)
+    return llista_copia
+def carrers_amb_hotels(llista_hotels):
+    noms_carrers = set()
+    for hotel in llista_hotels:
+        noms_carrers.add(hotel.carrer)
+    return noms_carrers
+def estrelles_per_barri(llista_hotels,codi_barri):
+    diccionari = codi_barri.copy()
+    for hotel in llista_hotels:
+        codi = llista_hotels.codi_barri
+        llista_hotels = diccionari[codi].nom
+        diccionari[codi_barri] = llista_hotels
+    return diccionari
+def densitat_per_districte(llista_hotels, codi_barri, codi_districte):
+    diccionari = {}
+    for hotel in llista_hotels:
+        suma = 0
+        if hotel in codi_barri and hotel in codi_districte:
+            suma += 1
+    for diccionari in range(len(diccionari)):
+        suma1 = 0
+        for i in diccionari:
+            suma1 += int(diccionari[i])
+    return suma1/len(diccionari)
 
 def carrers_amb_hotel(llista_hotels):
     carrets = set()
