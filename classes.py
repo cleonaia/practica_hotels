@@ -179,8 +179,7 @@ def mostrar_menu():
     print("5 - Llistat alfabetic d'hotels")
     print("6 - Carrers amb hotels")
     print("7 - Estadistica per barris")
-    print("8 - Estadistica per districtes") 
-    print("9 -Internacionalitzar per telefons")
+    print("8 - Internacionalitzar per telefons") 
     print("S - Sortir del programa")
 
 def mostrar_hotels(llista_hotels):
@@ -271,23 +270,23 @@ def estrelles_per_barri(llista_hotels,codi_barri):
         llista_hotels = diccionari[codi].nom
         diccionari[codi_barri] = llista_hotels
     return diccionari
-def densitat_per_districte(llista_hotels, codi_barri, codi_districte):
+def densitat_per_districte(llista_hotels, dic_barri,dic_districte):
     diccionari = {}
     for hotel in llista_hotels:
-        suma = 0
-        if hotel in codi_barri and hotel in codi_districte:
-            suma += 1
-    for diccionari in range(len(diccionari)):
-        suma1 = 0
-        for i in diccionari:
-            suma1 += int(diccionari[i])
-    return suma1/len(diccionari)
+        hotel.codi_barri
+        codi_districte = dic_barri[hotel.codi_barri].codi_districte
+        if codi_districte not in diccionari:
+            diccionari[codi_districte] = 1
+        else:
+            diccionari[codi_districte] += 1
+    densitat = diccionari[codi_districte]/len(diccionari)
+    return densitat
 
 def carrers_amb_hotel(llista_hotels):
     carrets = set()
     for hotel in llista_hotels:
         carrets.add(hotel.carrer)
-    return list(carets)
+    return carrets
 
 def afegir_prefixe_int(self):
     if len(self.telefon) == 0 or self.telefon[0] != '+':
