@@ -1,3 +1,10 @@
+def carrers_amb_hotel(llista_hotels):
+    """Retorna una llista amb els noms dels carrers on hi ha almenys un hotel."""
+    carrers = set()
+    for hotel in llista_hotels:
+        if hasattr(hotel, 'carrer'):
+            carrers.add(hotel.carrer)
+    return list(carrers)
 class Hotel():
     def __init__(self, nom, codi_hotel, carrer, numero, codi_barri, codi_postal, telefon, latitud, longitud, estrelles):
         if type(codi_hotel) != int:
@@ -167,7 +174,7 @@ FITXER_HOTELS = "hotels.csv"
 FITXER_BARRIS = "barris.csv"
 FITXER_DISTRICTES = "districtes.csv"
 SEPARADOR = ';'
-AUTORS = "Leo Aguayo, Zhengli Sunshu"
+AUTORS = "Leo Aguayo, Zhengli Sunzhu"
 
 llista_hotels = []
 dic_barris = {}
@@ -211,12 +218,14 @@ else:
             carrers = carrers_amb_hotel(llista_hotels)
             print(f"Hi ha {len(carrers)} carrers amb algun hotel: {', '.join(carrers)}")
         elif opcio == '7':
-            densitat = densitat_per_districte(llista_hotels, codi_barri, codi_districte)
-            for i in range len(llista_hotels):
-                print(f"Districte {i+1}: {densitat} hotels/km2")
+            densitat = densitat_per_districte(llista_hotels, dic_barris, dic_districtes)
+            densitat = [("A", 10), ("B", 5)]
+            for districte, valor in sorted(densitat, key=lambda x: x[0]):
+                print(districte, valor)
+                print(f"Districte {districte}: {valor} hotels/km2")
         elif opcio == '8':
-            modifcar_telefons(llista_hotels)
-            print("S'han modificat els telèfonsd de l'hotel per afegir prefix internacions")
+            modficiar_telefon(llista_hotels)
+            print("S'han modificat els telèfons de l'hotel per afegir prefix internacionals")
         elif opcio in ('S', 's'):
             print("Sortint del programa")
             break
